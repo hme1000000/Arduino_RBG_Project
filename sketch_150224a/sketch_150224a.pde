@@ -1,6 +1,9 @@
 import processing.serial.*;
 Serial colorrpg;
-float red = 0;
+String RBG;
+int red = 0;
+int green = 0;
+int blue = 0;
 void setup()
 {
   size(500,500);
@@ -9,9 +12,15 @@ void setup()
 }
 void draw()
 {
-  background(red,0,0); 
+  background(red,green,blue); 
 }
 void serialEvent(Serial colorrpg)
 {
-  red = float(colorrpg.readStringUntil('\n'));
+  RBG = colorrpg.readStringUntil('\n');
+  String redString = RBG.substring(0,3);
+  String greenString = RBG.substring(3,6);
+  String blueString = RBG.substring(6,9);
+  red =  Integer.parseInt(redString);
+  green =  Integer.parseInt(greenString);
+  blue =  Integer.parseInt(blueString);
 }
