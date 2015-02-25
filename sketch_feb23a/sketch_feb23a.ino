@@ -5,7 +5,6 @@ String red_pot  ;
 String green_pot;
 String blue_pot;
 String color;
-String RBG[3];
 void setup()
 {
 Serial.begin(9600);
@@ -16,17 +15,21 @@ pinMode(portB,INPUT);
 void loop()
 {
   red_pot = String((map(analogRead(portR),0,1023,0,255)),DEC);
-  green_pot = String((map(analogRead(portG),0,1023,0,255)),DEC);
-  blue_pot = String((map(analogRead(portB),0,1023,0,255)),DEC);
-  color = red_pot + green_pot + blue_pot;
-  Serial.println(red_pot);
-  Serial.println(green_pot);
-  Serial.println(blue_pot);
-  /*for(int i =0;i<3;i++)
+  for(int i=0;i<2;i++)
   {
-     RBG[i] = "10";
-     RBG[i] =Serial.readStringUntil('\n');
+      if (red_pot.length()<3) red_pot = "0"+red_pot;
   }
-  Serial.println(RBG[0]+RBG[1]+RBG[2]);*/
+  green_pot = String((map(analogRead(portG),0,1023,0,255)),DEC);
+  for(int i=0;i<2;i++)
+  {
+      if (green_pot.length()<3) green_pot = "0"+green_pot;
+  }
+  blue_pot = String((map(analogRead(portB),0,1023,0,255)),DEC);
+  for(int i=0;i<2;i++)
+  {
+      if (blue_pot.length()<3) blue_pot = "0"+blue_pot;
+  }
+  color = red_pot + green_pot + blue_pot;
+  Serial.println(color);
   delay(50);  
 }
